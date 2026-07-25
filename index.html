@@ -14,26 +14,32 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #2d1b4e 0%, #1a2f5c 50%, #0f3d2e 100%);
+            background: #0a1a0f;
             min-height: 100vh;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        body::before {
-            content: '';
+        #floating-texts {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(135, 206, 235, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(124, 179, 66, 0.1) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-text {
+            position: absolute;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: rgba(76, 175, 80, 0.4);
+            white-space: nowrap;
+            user-select: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .container {
@@ -44,14 +50,14 @@
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(10, 26, 15, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(124, 179, 66, 0.3);
             box-shadow: 
-                0 8px 32px 0 rgba(0, 0, 0, 0.37),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+                0 8px 32px 0 rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 0 rgba(124, 179, 66, 0.2);
             padding: 40px;
             margin-bottom: 30px;
             position: relative;
@@ -89,7 +95,7 @@
             width: 120px;
             height: 120px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 12px rgba(138, 43, 226, 0.4));
+            filter: drop-shadow(0 4px 12px rgba(124, 179, 66, 0.6));
             transition: transform 0.3s ease;
         }
 
@@ -298,56 +304,10 @@
                 font-size: 14px;
             }
         }
-
-        .floating-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(135, 206, 235, 0.6);
-            border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(50px);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="floating-particles">
-        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
-        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
-    </div>
+    <div id="floating-texts"></div>
 
     <div class="container">
         <div class="glass-card">
@@ -448,6 +408,73 @@
     </div>
 
     <script>
+        // Floating texts animation
+        const container = document.getElementById('floating-texts');
+        const texts = [];
+        const numTexts = 8;
+        const textContent = 'LifeSurvival';
+
+        class FloatingText {
+            constructor() {
+                this.element = document.createElement('div');
+                this.element.className = 'floating-text';
+                this.element.textContent = textContent;
+                container.appendChild(this.element);
+
+                this.x = Math.random() * (window.innerWidth - 200);
+                this.y = Math.random() * (window.innerHeight - 50);
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.width = 0;
+                this.height = 0;
+
+                this.element.style.left = this.x + 'px';
+                this.element.style.top = this.y + 'px';
+
+                // Wait for render to get dimensions
+                setTimeout(() => {
+                    const rect = this.element.getBoundingClientRect();
+                    this.width = rect.width;
+                    this.height = rect.height;
+                }, 100);
+            }
+
+            update() {
+                if (this.width === 0) return;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x <= 0 || this.x + this.width >= window.innerWidth) {
+                    this.vx *= -1;
+                    this.x = Math.max(0, Math.min(this.x, window.innerWidth - this.width));
+                }
+
+                if (this.y <= 0 || this.y + this.height >= window.innerHeight) {
+                    this.vy *= -1;
+                    this.y = Math.max(0, Math.min(this.y, window.innerHeight - this.height));
+                }
+
+                this.element.style.left = this.x + 'px';
+                this.element.style.top = this.y + 'px';
+            }
+        }
+
+        // Create floating texts
+        for (let i = 0; i < numTexts; i++) {
+            texts.push(new FloatingText());
+        }
+
+        // Animation loop
+        function animate() {
+            texts.forEach(text => text.update());
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Form submission
         document.getElementById('staffForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('¡Postulación enviada con éxito! Nos pondremos en contacto contigo a través de Discord.');
