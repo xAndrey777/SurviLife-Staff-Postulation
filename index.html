@@ -79,6 +79,10 @@
 
         .logo-container {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
         }
 
         .logo {
@@ -90,6 +94,26 @@
         }
 
         .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #8A2BE2 0%, #4169E1 50%, #7CB342 100%);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-placeholder:hover {
             transform: scale(1.05) rotate(5deg);
         }
 
@@ -329,7 +353,8 @@
         <div class="glass-card">
             <div class="header">
                 <div class="logo-container">
-                    <img src="/Recursos/Imagen/logo.png" alt="SurviLife Logo" class="logo">
+                    <img src="Recursos/Imagen/logo.png" alt="SurviLife Logo" class="logo" onerror="this.style.display='none'; document.getElementById('logo-placeholder').style.display='flex';">
+                    <div id="logo-placeholder" class="logo-placeholder" style="display: none;">SURVI<br>LIFE</div>
                 </div>
                 <h1>SURVILIFE</h1>
                 <p class="subtitle">Formulario de Postulación al Staff</p>
@@ -397,7 +422,7 @@
                     <h3>TÉRMINOS Y CONDICIONES</h3>
                     <ul>
                         <li>Ser respetuoso</li>
-                        <li>Tener Discord</li>
+                        <li>Respetar superiores</li>
                         <li>Compañerismo</li>
                         <li>No traicionar la confianza que te damos</li>
                         <li>Obediencia a los superiores</li>
