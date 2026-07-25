@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulación Staff - SurviLife</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #2d1b4e 0%, #1a2f5c 50%, #0f3d2e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(135, 206, 235, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(124, 179, 66, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 
+                0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(135, 206, 235, 0.5), 
+                rgba(124, 179, 66, 0.5), 
+                transparent);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 12px rgba(138, 43, 226, 0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 28px;
+            color: #87CEEB;
+            text-shadow: 
+                2px 2px 0 #2d1b4e,
+                4px 4px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+            color: #7CB342;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #87CEEB;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(135, 206, 235, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #7CB342;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(124, 179, 66, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #7CB342;
+            cursor: pointer;
+        }
+
+        .terms-box {
+            background: rgba(45, 27, 78, 0.4);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .terms-box h3 {
+            color: #87CEEB;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .terms-box ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .terms-box li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .terms-box li::before {
+            content: '⬢';
+            position: absolute;
+            left: 0;
+            color: #7CB342;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #8A2BE2 0%, #4169E1 50%, #7CB342 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .required {
+            color: #7CB342;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 14px;
+            }
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(135, 206, 235, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card">
+            <div class="header">
+                <div class="logo-container">
+                    <img src="/Recursos/Imagen/logo.png" alt="SurviLife Logo" class="logo">
+                </div>
+                <h1>SURVILIFE</h1>
+                <p class="subtitle">Formulario de Postulación al Staff</p>
+            </div>
+
+            <form id="staffForm">
+                <div class="form-group">
+                    <label for="discord">Discord (Requisito Obligatorio) <span class="required">*</span></label>
+                    <input type="text" id="discord" name="discord" placeholder="usuario#0000" required>
+                </div>
+
+                <h2>Preguntas de Postulación</h2>
+
+                <div class="form-group">
+                    <label for="q1">1. ¿Eres paciente? <span class="required">*</span></label>
+                    <textarea id="q1" name="q1" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q2">2. ¿Qué esperas de nosotros? <span class="required">*</span></label>
+                    <textarea id="q2" name="q2" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q3">3. ¿Cuál es tu motivación para unirte? <span class="required">*</span></label>
+                    <textarea id="q3" name="q3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q4">4. Explícame en 5 líneas cuáles son tus habilidades <span class="required">*</span></label>
+                    <textarea id="q4" name="q4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q5">5. ¿Cuántos servers has sido staff? <span class="required">*</span></label>
+                    <input type="number" id="q5" name="q5" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="q6">6. ¿Cuáles han sido los últimos servers en los que has estado de staff? <span class="required">*</span></label>
+                    <textarea id="q6" name="q6" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q7">7. ¿Qué buscas siendo staff? <span class="required">*</span></label>
+                    <textarea id="q7" name="q7" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q8">8. ¿Cuántas horas estarás disponible? <span class="required">*</span></label>
+                    <input type="text" id="q8" name="q8" placeholder="Ej: 4 horas diarias" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="q9">9. ¿Qué es lo primero que harías si te diéramos Staff? <span class="required">*</span></label>
+                    <textarea id="q9" name="q9" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="q10">10. ¿Cuál fue tu último acto malicioso como staff en otro server? <span class="required">*</span></label>
+                    <textarea id="q10" name="q10" required></textarea>
+                </div>
+
+                <div class="terms-box">
+                    <h3>TÉRMINOS Y CONDICIONES</h3>
+                    <ul>
+                        <li>Ser respetuoso</li>
+                        <li>Tener Discord</li>
+                        <li>Compañerismo</li>
+                        <li>No traicionar la confianza que te damos</li>
+                        <li>Obediencia a los superiores</li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label for="q11">11. ¿Aceptas nuestros términos y condiciones? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="q11" name="q11" required>
+                        <label for="q11" style="margin: 0; color: rgba(255, 255, 255, 0.9);">Acepto todos los términos y condiciones</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="q12">12. Nombre de usuario dentro del server <span class="required">*</span></label>
+                    <input type="text" id="q12" name="q12" placeholder="Tu nombre de usuario" required>
+                </div>
+
+                <button type="submit" class="submit-btn">ENVIAR POSTULACIÓN</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('staffForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Postulación enviada con éxito! Nos pondremos en contacto contigo a través de Discord.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
